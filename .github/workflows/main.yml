@@ -22,8 +22,8 @@ jobs:
       - name: install gauge
         run: npm i -g @getgauge/cli
       - name: test (*nix)
-        if: matrix.os != "windows-latest"
+        if: matrix.os != 'windows-latest'
         run: ./gradlew clean gauge
       - name: test (windows)
-        if: matrix.os == "windows-latest"
+        if: matrix.os == 'windows-latest'
         run: ./gradlew clean gauge -PgaugeRoot=C:/npm/prefix/node_modules/@getgauge/cli
