@@ -6,7 +6,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest, ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest]
         java: [ 8, 9, 10, 11, 12, 13 ]
 
     steps:
@@ -21,11 +21,28 @@ jobs:
           node-version: '12.x'
       - name: install gauge
         run: npm i -g @getgauge/cli
-      - name: test (*nix)
+      - name: test
         if: matrix.os != 'windows-latest'
         run: ./gradlew clean gauge
-      - name: test (windows)
-        if: matrix.os == 'windows-latest'
+
+  tests-windows:
+    name: test windows - {{ matrix.java }}
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        java: [ 8, 9, 10, 11, 12, 13 ]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup java
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+      - name: install gauge
         run: |
-          C:/npm/prefix/node_modules/@getgauge/cli/bin/gauge.exe install java
-          ./gradlew clean gauge -PgaugeRoot=C:/npm/prefix/node_modules/@getgauge/cli
+          Invoke-WebRequest -Uri https://github.com/getgauge/gauge/releases/download/v1.0.7/gauge-1.0.7-windows.x86_64.exe -OutFile gauge-installer.exe
+          gauge-installer.exe /S
+      - name: test
+        run: |
+          gauge.exe install java
+          ./gradlew clean gauge
