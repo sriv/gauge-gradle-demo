@@ -2,7 +2,7 @@ name: test
 on: [push]
 jobs:
   tests:
-    name: test ${{ matrix.os }} - {{ matrix.java }}
+    name: test ${{ matrix.os }} - Java${{ matrix.java }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -23,10 +23,10 @@ jobs:
         run: npm i -g @getgauge/cli
       - name: test
         if: matrix.os != 'windows-latest'
-        run: ./gradlew clean gauge
+        run: ./gradlew gauge
 
   tests-windows:
-    name: test windows - {{ matrix.java }}
+    name: test windows - Java${{ matrix.java }}
     runs-on: windows-latest
     strategy:
       matrix:
@@ -43,4 +43,4 @@ jobs:
           choco install gauge --version=1.0.7
           echo "::add-path::C:\\Program Files\\gauge\\bin"
       - name: test
-        run: ./gradlew clean gauge
+        run: ./gradlew gauge
