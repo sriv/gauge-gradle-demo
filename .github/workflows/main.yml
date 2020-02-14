@@ -19,11 +19,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-      - name: add path
-        run: echo "::[add-path]::C:\npm\prefix"
+        if: matrix.os != 'windows-latest'
+      - name: choco install
+        run: choco install gauge
         if: matrix.os == 'windows-latest'
       - name: install gauge
         run: npm i -g @getgauge/cli
+        if: matrix.os != 'windows-latest'
       - name: verify gauge
         run: gauge -v
       - name: install plugins
