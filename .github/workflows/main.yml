@@ -23,7 +23,7 @@ jobs:
         run: npm i -g @getgauge/cli
       - name: test (*nix)
         run: ./gradlew clean gauge
-        if: ${{matrix.os}} != "windows-latest"
+        if: matrix.os != "windows-latest"
       - name: test (windows)
         run: ./gradlew clean gauge -PgaugeRoot=C:/npm/prefix/node_modules/@getgauge/cli
-        if: ${{matrix.os}} == "windows-latest"        
+        if: matrix.os == "windows-latest"
