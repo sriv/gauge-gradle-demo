@@ -42,4 +42,5 @@ jobs:
         run: choco install gauge --version=1.0.7
       - name: test
         run: |
+          refreshenv
           ./gradlew clean gauge
