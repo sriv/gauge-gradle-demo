@@ -39,9 +39,7 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
       - name: install gauge
-        run: |
-          Invoke-WebRequest -Uri https://github.com/getgauge/gauge/releases/download/v1.0.7/gauge-1.0.7-windows.x86_64.exe -OutFile gauge-installer.exe
-          gauge-installer.exe /S
+        run: choco install gauge --version=1.0.7
       - name: test
         run: |
           gauge.exe install java
