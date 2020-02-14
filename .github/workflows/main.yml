@@ -39,8 +39,8 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
       - name: install gauge
-        run: choco install gauge --version=1.0.7
-      - name: test
         run: |
-          refreshenv
-          ./gradlew clean gauge
+          choco install gauge --version=1.0.7
+          echo "::add-path::C:\\Program Files\\gauge\\bin"
+      - name: test
+        run: ./gradlew clean gauge
