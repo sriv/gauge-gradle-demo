@@ -21,7 +21,7 @@ jobs:
           node-version: '12.x'
       - name: add path
         run: echo "::[add-path]::C:\npm\prefix"
-        if: matrix.os == 'windows'
+        if: matrix.os == 'windows-latest'
       - name: install gauge
         run: npm i -g @getgauge/cli
       - name: verify gauge
