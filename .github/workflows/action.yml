@@ -1,7 +1,0 @@
-name: docker-jdk13
-on: [push]
-runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - -PinParallel=true
