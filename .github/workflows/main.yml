@@ -3,13 +3,11 @@ on: [push]
 jobs:
   tests-docker:
     name: docker-jdk13
-    runs-on : ubuntu:latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: build image
-        run: docker build -t gauge-java:0.7.7 .
-      - name: test
-        run: docker run gauge-java:0.7.7 -PinParallel=true
+    runs:
+      using: 'docker'
+      image: 'Dockerfile'
+    args:
+      - -PinParallel=true
 
   tests:
     name: test ${{ matrix.os }} - Java${{ matrix.java }}
