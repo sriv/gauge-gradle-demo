@@ -1,13 +1,6 @@
 name: test
 on: [push]
 jobs:
-  tests-docker:
-    name: docker-jdk13
-    runs:
-      using: 'docker'
-      image: 'Dockerfile'
-      args:
-        - -PinParallel=true    
   tests:
     name: test ${{ matrix.os }} - Java${{ matrix.java }}
     runs-on: ${{ matrix.os }}
