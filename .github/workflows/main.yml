@@ -5,8 +5,11 @@ jobs:
     name: docker
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: gauge test in docker
         uses: ./
+        with:
+          args: -PinParallel=true
   tests:
     name: test ${{ matrix.os }} - Java${{ matrix.java }}
     runs-on: ${{ matrix.os }}
