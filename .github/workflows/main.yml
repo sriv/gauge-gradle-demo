@@ -1,6 +1,12 @@
 name: test
 on: [push]
 jobs:
+  tests-docker:
+    name: docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: gauge test in docker
+        uses: ./
   tests:
     name: test ${{ matrix.os }} - Java${{ matrix.java }}
     runs-on: ${{ matrix.os }}

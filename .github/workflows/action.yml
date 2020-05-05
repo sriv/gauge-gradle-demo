@@ -1,5 +1,5 @@
-name: docker-jdk13
-on: [push]
+name: gauge-docker
+description: run gauge test in docker container
 runs:
   using: 'docker'
   image: 'Dockerfile'
