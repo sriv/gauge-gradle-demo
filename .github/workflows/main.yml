@@ -1,13 +1,23 @@
 name: test
 on: [push]
 jobs:
+  tests-docker:
+    name: docker-jdk13
+    runs-on : ubuntu:latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: build image
+        run: docker build -t gauge-java:0.7.7 .
+      - name: test
+        run: docker run gauge-java:0.7.7 -PinParallel=true
+
   tests:
     name: test ${{ matrix.os }} - Java${{ matrix.java }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        java: [ 8, 9, 10, 11, 12, 13 ]
+        java: [ 9, 10, 11, 12, 13 ]
 
     steps:
       - uses: actions/checkout@v2
@@ -30,7 +40,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        java: [ 8, 9, 10, 11, 12, 13 ]
+        java: [ 9, 10, 11, 12, 13 ]
 
     steps:
       - uses: actions/checkout@v2
@@ -40,7 +50,7 @@ jobs:
           java-version: ${{ matrix.java }}
       - name: install gauge
         run: |
-          choco install gauge --version=1.0.7
+          choco install gauge
           echo "::add-path::C:\\Program Files\\gauge\\bin"
       - name: test
         run: ./gradlew gauge
